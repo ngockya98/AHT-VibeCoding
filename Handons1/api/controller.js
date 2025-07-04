@@ -34,7 +34,7 @@ exports.calculate = function(req, res) {
           throw new Error("Division by zero is not allowed");
         }
         return Number(a) / Number(b); 
-      }Ư
+      }
     };
 
     var operation = operations[req.query.operation];
