@@ -1,0 +1,4 @@
+.card { background: linear-gradient(135deg, #1976d2 60%, #42a5f5 100%); color: #fff; border-radius: 1.25rem; padding: 1.5rem; min-width: 300px; box-shadow: 0 2px 12px #1976d244; margin: 1rem 0; }
+.chip { width: 40px; height: 28px; background: #fff8; border-radius: 8px; margin-bottom: 1rem; }
+.number { font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.info { display: flex; justify-content: space-between; font-size: 0.95rem; }

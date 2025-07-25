@@ -1,0 +1,2 @@
+.header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #fff; box-shadow: 0 2px 8px #eee; }
+.back, .notify { background: none; border: none; font-size: 1.5rem; cursor: pointer; }

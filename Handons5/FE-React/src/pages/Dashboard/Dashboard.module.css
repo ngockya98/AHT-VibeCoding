@@ -1,0 +1,32 @@
+.dashboardContainer {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fa 0%, #e3eafc 100%);
+  padding-bottom: 80px; /* space for bottom nav */
+}
+
+.mainContent {
+  padding: 1.5rem 1rem 0 1rem;
+}
+
+.quickActions {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+}
+
+.recentTransactions {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px #1976d222;
+  padding: 1.25rem 1rem 1rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1976d2;
+}

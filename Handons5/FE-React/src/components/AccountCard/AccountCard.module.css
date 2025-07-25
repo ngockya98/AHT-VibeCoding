@@ -1,0 +1,3 @@
+.card { background: #1976d2; color: #fff; border-radius: 1rem; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 8px #1976d233; }
+.name { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.balance { font-size: 2rem; font-weight: bold; }

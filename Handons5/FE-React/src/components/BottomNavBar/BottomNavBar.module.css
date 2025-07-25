@@ -1,0 +1,2 @@
+.navbar { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 0; background: #fff; box-shadow: 0 -2px 8px #eee; position: fixed; bottom: 0; left: 0; right: 0; }
+.active { color: #1976d2; font-weight: bold; }
