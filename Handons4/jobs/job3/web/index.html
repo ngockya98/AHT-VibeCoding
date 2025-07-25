@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crawl News Job</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crawl News Job</h1>
+        <form id="crawlForm">
+            <label for="url">News URL:</label>
+            <input type="text" id="url" name="url" value="https://example.com/news" required>
+            <label for="selector">Selector:</label>
+            <input type="text" id="selector" name="selector" value="h2.title a" required>
+            <button type="submit">Crawl</button>
+        </form>
+        <div id="result">
+            <!-- Results will be shown here -->
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
