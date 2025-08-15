@@ -1,0 +1,16 @@
+NHIỆM VỤ: Tạo microservice NestJS tên [SERVICE_NAME] (ví dụ: auth, garage, distributor, inventory, finance, reporting).
+
+YÊU CẦU:
+- Structure: apps/[SERVICE_NAME]/src với modules, controllers, services, repositories, entities, dto, guards, interceptors, filters.
+- Data: TypeORM + PostgreSQL; class-validator + class-transformer; Zod cho boundary.
+- Messaging: RabbitMQ (amq.topic) + outbox (transactional) + idempotency-key trên consumer.
+- Cache: Redis (TTL, cache keys naming); rate limit trên public endpoints.
+- Security: RBAC guard; field-level permission ở read; audit log (who/when/what).
+- Observability: OpenTelemetry auto-instrument, health checks (/health), readiness/liveness probe.
+- Tests: Jest unit + supertest e2e; Pact contract cho API public.
+
+ĐẦU RA:
+1) Cây thư mục + file code khởi tạo (controller/service/repo/entity/dto)
+2) Dockerfile + docker-compose (db+redis+rabbit) để chạy local
+3) Scripts NPM (dev, test, e2e, lint, format, migrate)
+4) Ví dụ 3 endpoint CRUD + 1 endpoint search + 1 event publisher/consumer

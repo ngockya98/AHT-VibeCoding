@@ -1,0 +1,822 @@
+openapi: 3.0.3
+info:
+  title: Automotive Service Management Platform API
+  version: "1.0"
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: JWT tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /auth/register:
+    post:
+      summary: Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /auth/refresh:
+    post:
+      summary: Refresh JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+      responses:
+        '200':
+          description: New JWT tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /users/me:
+    get:
+      summary: Get current user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users:
+    get:
+      summary: List users
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  total:
+                    type: integer
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /garages:
+    get:
+      summary: List garages
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of garages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Garage'
+  /customers:
+    get:
+      summary: List customers
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /appointments:
+    get:
+      summary: List appointments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+    post:
+      summary: Create appointment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentCreate'
+      responses:
+        '201':
+          description: Appointment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+  /appointments/{id}:
+    get:
+      summary: Get appointment by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+  /repair-orders:
+    get:
+      summary: List repair orders
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of repair orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RepairOrder'
+    post:
+      summary: Create repair order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairOrderCreate'
+      responses:
+        '201':
+          description: Repair order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairOrder'
+  /repair-orders/{id}:
+    get:
+      summary: Get repair order by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Repair order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairOrder'
+  /tasks:
+    get:
+      summary: List tasks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      summary: Create task
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /tasks/{id}/status:
+    patch:
+      summary: Update task status
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /products/search:
+    get:
+      summary: Search products
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  total:
+                    type: integer
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /inventory:
+    get:
+      summary: List inventory
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Inventory list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Inventory'
+  /inventory/{id}:
+    get:
+      summary: Get inventory by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inventory item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+  /orders:
+    get:
+      summary: List orders
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Create order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /orders/{id}/status:
+    patch:
+      summary: Update order status
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Order updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /invoices:
+    get:
+      summary: List invoices
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of invoices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+  /invoices/{id}:
+    get:
+      summary: Get invoice by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /payments:
+    post:
+      summary: Create payment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreate'
+      responses:
+        '201':
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /reports/sales:
+    get:
+      summary: Sales report
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Sales report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesReport'
+  /reports/inventory:
+    get:
+      summary: Inventory report
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Inventory report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryReport'
+  /reports/finance:
+    get:
+      summary: Finance report
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Finance report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinanceReport'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+      required: false
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+      required: false
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required: [email, password]
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        full_name:
+          type: string
+        phone:
+          type: string
+      required: [email, password]
+    RefreshRequest:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      required: [refresh_token]
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        full_name:
+          type: string
+        phone:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    Garage:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        full_name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: string
+        garage_id:
+          type: string
+        customer_id:
+          type: string
+        vehicle_id:
+          type: string
+        scheduled_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+    AppointmentCreate:
+      type: object
+      properties:
+        garage_id:
+          type: string
+        customer_id:
+          type: string
+        vehicle_id:
+          type: string
+        scheduled_at:
+          type: string
+          format: date-time
+    RepairOrder:
+      type: object
+      properties:
+        id:
+          type: string
+        garage_id:
+          type: string
+        customer_id:
+          type: string
+        vehicle_id:
+          type: string
+        appointment_id:
+          type: string
+        status:
+          type: string
+        total_price:
+          type: number
+        discount:
+          type: number
+    RepairOrderCreate:
+      type: object
+      properties:
+        garage_id:
+          type: string
+        customer_id:
+          type: string
+        vehicle_id:
+          type: string
+        appointment_id:
+          type: string
+        discount:
+          type: number
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        repair_order_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        assigned_to:
+          type: string
+        status:
+          type: string
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+    TaskCreate:
+      type: object
+      properties:
+        repair_order_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        assigned_to:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+    Inventory:
+      type: object
+      properties:
+        id:
+          type: string
+        warehouse_id:
+          type: string
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        customer_id:
+          type: string
+        status:
+          type: string
+        total_price:
+          type: number
+    OrderCreate:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              product_id:
+                type: string
+              quantity:
+                type: integer
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        repair_order_id:
+          type: string
+        order_id:
+          type: string
+        customer_id:
+          type: string
+        amount:
+          type: number
+        issued_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+    PaymentCreate:
+      type: object
+      properties:
+        invoice_id:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        invoice_id:
+          type: string
+        amount:
+          type: number
+        paid_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+        method:
+          type: string
+    SalesReport:
+      type: object
+      properties:
+        total_sales:
+          type: number
+        by_garage:
+          type: object
+          additionalProperties:
+            type: number
+    InventoryReport:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        by_warehouse:
+          type: object
+          additionalProperties:
+            type: integer
+    FinanceReport:
+      type: object
+      properties:
+        total_revenue:
+          type: number
+        total_expense:
+          type: number
+        net_profit:
+          type: number
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string

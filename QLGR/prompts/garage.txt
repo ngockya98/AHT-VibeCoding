@@ -1,0 +1,12 @@
+NHIỆM VỤ: Xây module quy trình sửa chữa:
+- Tiếp nhận xe → tạo RO (repair order) → báo giá → duyệt → phân công tasks → ghi nhận công → lấy phụ tùng → cập nhật tiến độ → nghiệm thu → hoá đơn → thanh toán.
+- Theo dõi cho khách bằng link/QR.
+
+YÊU CẦU:
+- Entities chính: customers, vehicles, appointments, repair_orders, repair_order_items(parts/labor), tasks, work_logs, warranties.
+- Trạng thái RO: DRAFT → QUOTED → APPROVED → IN_PROGRESS → QA → COMPLETED → INVOICED → CLOSED.
+- Business rules: báo giá không được < sum(parts+labor-chiết khấu), task phải hoàn tất trước QA, phụ tùng xuất kho → lock hàng.
+- API + GraphQL resolver + webhook sự kiện thay đổi trạng thái.
+- Tự động xuất PDF hợp đồng/báo giá (template + i18n).
+
+ĐẦU RA: Code + schema + test e2e flow đầy đủ + mẫu PDF.

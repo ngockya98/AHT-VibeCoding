@@ -1,0 +1,9 @@
+NHIỆM VỤ: App RN cho Staff/Customer:
+- Staff: nhận việc, checklists, quét QR, yêu cầu phụ tùng, time tracking.
+- Customer: đặt lịch, theo dõi tiến độ, xem hoá đơn, thanh toán.
+
+YÊU CẦU:
+- Navigation, offline cache (MMKV/SQLite), push notification, QR scanner.
+- Theming, i18n, error boundary, SSO với JWT refresh.
+
+ĐẦU RA: Boilerplate + 2 flow demo (Staff nhận việc; Customer theo dõi RO).

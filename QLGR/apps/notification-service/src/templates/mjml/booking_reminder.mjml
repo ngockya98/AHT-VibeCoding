@@ -1,0 +1,10 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="20px" color="#333333">Booking Reminder</mj-text>
+        <mj-text>Your appointment is scheduled for {{scheduled_at}} at {{garage_name}}.</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

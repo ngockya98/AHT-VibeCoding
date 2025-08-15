@@ -1,0 +1,6 @@
+NHIỆM VỤ: Notification service:
+- Templates: booking_reminder, quotation_ready, order_shipped, invoice_issued, warranty_expiring.
+- Channel: Email (SMTP/Provider), SMS, Push (FCM/APNs).
+- Ưu tiên/Retry/Dead-letter; mute theo user preference.
+
+ĐẦU RA: Data model + provider adapters + queue workers + template mẫu (MJML) + test.

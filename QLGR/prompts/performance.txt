@@ -1,0 +1,6 @@
+NHIỆM VỤ: Kịch bản k6:
+- Search marketplace 60% traffic, checkout 10%, xem RO 20%, API inventory 10%.
+- Mẫu VU: 1k VU, ramping; mục tiêu p95 < 300ms cho search cache hit.
+- Báo cáo: charts + CSV.
+
+ĐẦU RA: script k6 + hướng dẫn chạy + cách đọc kết quả + đề xuất tối ưu.

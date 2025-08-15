@@ -1,0 +1,38 @@
+stages:
+  - lint
+  - test
+  - build
+  - docker
+  - deploy
+
+lint:
+  image: node:20
+  script:
+    - pnpm install
+    - pnpm lint
+
+test:
+  image: node:20
+  script:
+    - pnpm install
+    - pnpm test
+
+build:
+  image: node:20
+  script:
+    - pnpm install
+    - pnpm build
+
+docker:
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t automotive-platform .
+
+deploy:
+  image: alpine/helm:3.12.0
+  script:
+    - helm upgrade --install automotive-platform infra/k8s --values infra/k8s/values.yaml
+  only:
+    - main

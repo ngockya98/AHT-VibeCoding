@@ -1,0 +1,11 @@
+{
+  "login": "Login",
+  "dashboard": "Dashboard",
+  "marketplace": "Marketplace",
+  "inventory": "Inventory",
+  "appointments": "Appointments",
+  "repair_orders": "Repair Orders",
+  "invoices": "Invoices",
+  "reports": "Reports",
+  "logout": "Logout"
+}

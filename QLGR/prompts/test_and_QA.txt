@@ -1,0 +1,5 @@
+NHIỆM VỤ: Thiết lập chiến lược kiểm thử:
+- Unit (Jest), API e2e (supertest), UI e2e (Playwright/Cypress), Contract (Pact), Performance (k6), Security scan (Snyk/trivy), Dependency audit.
+- Test data management & anonymization.
+
+ĐẦU RA: cấu hình test, ví dụ test quan trọng (auth, inventory concurrency, payment webhook), báo cáo coverage & threshold.

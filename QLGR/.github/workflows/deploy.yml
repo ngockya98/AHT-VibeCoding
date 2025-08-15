@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install deps
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Docker Build
+        run: docker build -t automotive-platform .
+      - name: Helm Deploy
+        run: |
+          helm upgrade --install automotive-platform infra/k8s \
+            --values infra/k8s/values.yaml

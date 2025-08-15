@@ -1,0 +1,13 @@
+NHIỆM VỤ: Tạo service AUTH (NestJS) hỗ trợ:
+- Đăng nhập/password + OAuth2 (tùy chọn), JWT access/refresh, rotation + revocation.
+- Multi-tenant (garage, distributor) — tenant_id trong token.
+- Roles: admin, manager, advisor, technician, warehouse, finance, customer.
+- Permission dạng resource:action (vd: "orders:read", "inventory:update").
+
+YÊU CẦU:
+- Endpoints: /auth/login, /auth/refresh, /auth/logout, /auth/me, /roles, /permissions, /assign.
+- Hash: Argon2id, password policy; 2FA (TOTP) tùy chọn.
+- Thêm audit trail khi login/logout/fail.
+- Mẫu guard @Permissions('orders:read').
+
+ĐẦU RA: Code NestJS modules + OpenAPI snippet + test e2e cho login/refresh/guard.

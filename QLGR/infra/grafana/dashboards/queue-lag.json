@@ -1,0 +1,15 @@
+{
+  "title": "Queue Lag",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Queue Lag",
+      "targets": [
+        {
+          "expr": "sum(rate(rabbitmq_queue_messages_ready[5m])) by (queue)",
+          "legendFormat": "{{queue}}"
+        }
+      ]
+    }
+  ]
+}

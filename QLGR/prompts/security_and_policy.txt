@@ -1,0 +1,7 @@
+NHIỆM VỤ: Hardening & compliance:
+- Secret management (Vault/ASM), CSP, HSTS, HTTPS-only, CSRF cho GraphQL mutations nếu cần.
+- Input validation, output encoding, mass assignment bảo vệ.
+- PII inventory + data retention policy + quyền truy cập theo vai trò.
+- Nhật ký bảo mật (login fail, permission deny, config change).
+
+ĐẦU RA: Checklist OWASP ASVS áp dụng; code middleware bảo vệ; kịch bản pentest nội bộ.

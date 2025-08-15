@@ -1,0 +1,19 @@
+NHIỆM VỤ: Thiết kế schema PostgreSQL chuẩn hóa cho các bounded context:
+- Auth/RBAC, Garage (customers, vehicles, appointments, repair_orders, tasks, work_logs),
+- Distributor/Marketplace (products, product_media, fitment, price_rules, warehouses, inventory, orders, order_items),
+- Finance (invoices, payments, expenses, commissions),
+- Warranty/Maintenance,
+- System (audit_logs, notifications, settings).
+
+YÊU CẦU:
+- Khoá chính: UUID v7; thời gian: created_at/updated_at timestamptz; soft-delete nếu phù hợp.
+- Ràng buộc: FK, unique, check constraints; index (B-Tree/GIN/GIN trigram); partitioning cho bảng log lớn.
+- Mapping liên hệ: vehicle ↔ repair_orders, product ↔ inventory(location), order ↔ shipment.
+- Bảo mật PII: bảng/column cần mã hóa (vd: phone/email) — đề xuất dùng pgcrypto.
+- Migration: tạo file SQL migration (up/down) + seed tối thiểu.
+- Hiệu năng: chỉ rõ index đề xuất cho truy vấn top 10 (search sản phẩm, inventory by location, RO by status).
+
+ĐẦU RA:
+1) ERD mô tả (bằng Mermaid) + liệt kê bảng/field/type/constraints
+2) File DDL (SQL) chia module; kèm ví dụ 5 truy vấn phức tạp và explain (giả định)
+3) Kịch bản seed dữ liệu mẫu cho demo

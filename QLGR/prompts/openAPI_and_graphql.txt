@@ -1,0 +1,14 @@
+NHIỆM VỤ: Định nghĩa OpenAPI 3.1 và GraphQL schema cho các domain chính:
+- Auth (login/refresh, RBAC), Garage, Distributor/Marketplace, Inventory, Orders, Finance, Reporting.
+
+YÊU CẦU:
+- REST: chuẩn hóa pagination (page/limit), filter (RHS: eq, ne, lt, lte, gt, gte, in, like), sort (multifield), error model (code/message/details/correlationId).
+- GraphQL: schema .graphql, types, inputs, mutations, connections (Relay style), DataLoader note.
+- Versioning: /v1; deprecation strategy.
+- Bảo mật: Bearer JWT; scopes/permissions trong securitySchemes.
+- Webhook & events (AsyncAPI snippet) cho inventory_changed, order_status_changed, payment_captured.
+
+ĐẦU RA:
+1) openapi.yaml đầy đủ, có examples
+2) schema.graphql đầy đủ + sample queries/mutations
+3) AsyncAPI snippet cho các event chính

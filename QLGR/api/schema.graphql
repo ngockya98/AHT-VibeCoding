@@ -1,0 +1,302 @@
+type User {
+  id: ID!
+  email: String!
+  fullName: String
+  phone: String
+  roles: [String!]!
+}
+
+type Garage {
+  id: ID!
+  name: String!
+  address: String
+  phone: String
+}
+
+type Customer {
+  id: ID!
+  fullName: String
+  phone: String
+  email: String
+}
+
+type Vehicle {
+  id: ID!
+  customer: Customer!
+  vin: String
+  licensePlate: String
+  brand: String
+  model: String
+  year: Int
+}
+
+type Appointment {
+  id: ID!
+  garage: Garage!
+  customer: Customer!
+  vehicle: Vehicle!
+  scheduledAt: String!
+  status: String
+}
+
+type RepairOrder {
+  id: ID!
+  garage: Garage!
+  customer: Customer!
+  vehicle: Vehicle!
+  appointment: Appointment
+  status: String
+  totalPrice: Float
+  discount: Float
+}
+
+type Task {
+  id: ID!
+  repairOrder: RepairOrder!
+  name: String
+  description: String
+  assignedTo: User
+  status: String
+  startedAt: String
+  completedAt: String
+}
+
+type Product {
+  id: ID!
+  name: String!
+  sku: String
+  description: String
+  price: Float!
+}
+
+type Inventory {
+  id: ID!
+  warehouse: Warehouse!
+  product: Product!
+  quantity: Int!
+  updatedAt: String
+}
+
+type Warehouse {
+  id: ID!
+  name: String!
+  address: String
+}
+
+type Order {
+  id: ID!
+  customer: Customer!
+  status: String
+  totalPrice: Float
+  items: [OrderItem!]!
+}
+
+type OrderItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  price: Float!
+}
+
+type Invoice {
+  id: ID!
+  repairOrder: RepairOrder
+  order: Order
+  customer: Customer!
+  amount: Float!
+  issuedAt: String
+  status: String
+}
+
+type Payment {
+  id: ID!
+  invoice: Invoice!
+  amount: Float!
+  paidAt: String
+  status: String
+  method: String
+}
+
+type SalesReport {
+  totalSales: Float!
+  byGarage: [GarageSales!]!
+}
+
+type GarageSales {
+  garage: Garage!
+  sales: Float!
+}
+
+type InventoryReport {
+  totalItems: Int!
+  byWarehouse: [WarehouseInventory!]!
+}
+
+type WarehouseInventory {
+  warehouse: Warehouse!
+  items: Int!
+}
+
+type FinanceReport {
+  totalRevenue: Float!
+  totalExpense: Float!
+  netProfit: Float!
+}
+
+type Query {
+  me: User
+  users(first: Int, after: String): UserConnection!
+  garages: [Garage!]!
+  customers: [Customer!]!
+  appointments(first: Int, after: String): AppointmentConnection!
+  repairOrders(first: Int, after: String): RepairOrderConnection!
+  tasks(first: Int, after: String): TaskConnection!
+  products(search: String, first: Int, after: String): ProductConnection!
+  inventory(first: Int, after: String): InventoryConnection!
+  orders(first: Int, after: String): OrderConnection!
+  invoices(first: Int, after: String): InvoiceConnection!
+  salesReport(from: String, to: String): SalesReport
+  inventoryReport: InventoryReport
+  financeReport: FinanceReport
+}
+
+type Mutation {
+  login(email: String!, password: String!): AuthPayload!
+  register(email: String!, password: String!, fullName: String, phone: String): User!
+  refresh(refreshToken: String!): AuthPayload!
+  createAppointment(input: AppointmentInput!): Appointment!
+  createRepairOrder(input: RepairOrderInput!): RepairOrder!
+  createTask(input: TaskInput!): Task!
+  updateTaskStatus(id: ID!, status: String!): Task!
+  createOrder(input: OrderInput!): Order!
+  updateOrderStatus(id: ID!, status: String!): Order!
+  createPayment(input: PaymentInput!): Payment!
+}
+
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input AppointmentInput {
+  garageId: ID!
+  customerId: ID!
+  vehicleId: ID!
+  scheduledAt: String!
+}
+
+input RepairOrderInput {
+  garageId: ID!
+  customerId: ID!
+  vehicleId: ID!
+  appointmentId: ID
+  discount: Float
+}
+
+input TaskInput {
+  repairOrderId: ID!
+  name: String!
+  description: String
+  assignedTo: ID
+}
+
+input OrderInput {
+  customerId: ID!
+  items: [OrderItemInput!]!
+}
+
+input OrderItemInput {
+  productId: ID!
+  quantity: Int!
+}
+
+input PaymentInput {
+  invoiceId: ID!
+  amount: Float!
+  method: String!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type AppointmentConnection {
+  edges: [AppointmentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AppointmentEdge {
+  node: Appointment!
+  cursor: String!
+}
+
+type RepairOrderConnection {
+  edges: [RepairOrderEdge!]!
+  pageInfo: PageInfo!
+}
+
+type RepairOrderEdge {
+  node: RepairOrder!
+  cursor: String!
+}
+
+type TaskConnection {
+  edges: [TaskEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskEdge {
+  node: Task!
+  cursor: String!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+type InventoryConnection {
+  edges: [InventoryEdge!]!
+  pageInfo: PageInfo!
+}
+
+type InventoryEdge {
+  node: Inventory!
+  cursor: String!
+}
+
+type OrderConnection {
+  edges: [OrderEdge!]!
+  pageInfo: PageInfo!
+}
+
+type OrderEdge {
+  node: Order!
+  cursor: String!
+}
+
+type InvoiceConnection {
+  edges: [InvoiceEdge!]!
+  pageInfo: PageInfo!
+}
+
+type InvoiceEdge {
+  node: Invoice!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}

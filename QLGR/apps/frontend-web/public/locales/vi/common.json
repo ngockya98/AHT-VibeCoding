@@ -1,0 +1,11 @@
+{
+  "login": "Đăng nhập",
+  "dashboard": "Bảng điều khiển",
+  "marketplace": "Chợ",
+  "inventory": "Tồn kho",
+  "appointments": "Lịch hẹn",
+  "repair_orders": "Lệnh sửa chữa",
+  "invoices": "Hóa đơn",
+  "reports": "Báo cáo",
+  "logout": "Đăng xuất"
+}

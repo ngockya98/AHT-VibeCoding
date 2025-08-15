@@ -1,0 +1,164 @@
+version: '3.8'
+networks:
+  auto_net:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: automotive
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    networks:
+      - auto_net
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - auto_net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - auto_net
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - auto_net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    ports:
+      - "5601:5601"
+    networks:
+      - auto_net
+    depends_on:
+      - elasticsearch
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./minio/data:/data
+    networks:
+      - auto_net
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.93.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./infra/otel/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - auto_net
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - auto_net
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3005:3000"
+    networks:
+      - auto_net
+    depends_on:
+      - prometheus
+
+  loki:
+    image: grafana/loki:2.9.3
+    ports:
+      - "3100:3100"
+    networks:
+      - auto_net
+
+  tempo:
+    image: grafana/tempo:2.3.1
+    ports:
+      - "3200:3200"
+    networks:
+      - auto_net
+
+  apps-auth-service:
+    build: ./apps/auth-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env.example
+    networks:
+      - auto_net
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+
+  apps-garage-service:
+    build: ./apps/garage-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env.example
+    networks:
+      - auto_net
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+
+  apps-inventory-service:
+    build: ./apps/inventory-service
+    ports:
+      - "3003:3003"
+    env_file:
+      - .env.example
+    networks:
+      - auto_net
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+      - elasticsearch
+
+  apps-frontend-web:
+    build: ./apps/frontend-web
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.example
+    networks:
+      - auto_net
+    depends_on:
+      - apps-auth-service
+      - apps-garage-service
+      - apps-inventory-service

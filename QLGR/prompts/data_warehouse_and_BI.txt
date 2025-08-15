@@ -1,0 +1,6 @@
+NHIỆM VỤ: Pipeline dữ liệu:
+- CDC từ Postgres → (Debezium/Kafka) → lake (S3) → DW (BigQuery/Redshift).
+- Mô hình star schema: fact_orders, fact_repair, dim_customer, dim_vehicle, dim_product, dim_time, dim_location.
+- Dashboard KPIs: revenue, AOV, conversion marketplace, utilization technician, SLA lead time RO, warranty rate.
+
+ĐẦU RA: DDL DW + dbt models + 3 dashboard mẫu + lịch chạy ETL.

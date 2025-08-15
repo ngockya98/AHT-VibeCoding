@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  notification-service:
+    build: .
+    ports:
+      - "3006:3006"
+    env_file:
+      - .env.example
+    volumes:
+      - ./src:/app/src

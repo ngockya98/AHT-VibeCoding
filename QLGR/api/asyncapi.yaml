@@ -1,0 +1,86 @@
+asyncapi: '2.6.0'
+info:
+  title: Automotive Platform Events
+  version: '1.0.0'
+channels:
+  inventory_changed:
+    subscribe:
+      summary: Inventory changed event
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            product_id:
+              type: string
+            warehouse_id:
+              type: string
+            quantity:
+              type: integer
+            changed_at:
+              type: string
+              format: date-time
+  order_status_changed:
+    subscribe:
+      summary: Order status changed event
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            order_id:
+              type: string
+            status:
+              type: string
+            changed_at:
+              type: string
+              format: date-time
+  payment_captured:
+    subscribe:
+      summary: Payment captured event
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            payment_id:
+              type: string
+            invoice_id:
+              type: string
+            amount:
+              type: number
+            captured_at:
+              type: string
+              format: date-time
+  repair_order_updated:
+    subscribe:
+      summary: Repair order updated event
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            repair_order_id:
+              type: string
+            status:
+              type: string
+            updated_at:
+              type: string
+              format: date-time
+  notification_sent:
+    subscribe:
+      summary: Notification sent event
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            notification_id:
+              type: string
+            user_id:
+              type: string
+            type:
+              type: string
+            sent_at:
+              type: string
+              format: date-time

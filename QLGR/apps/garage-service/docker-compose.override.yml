@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  garage-service:
+    build: .
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env.example
+    volumes:
+      - ./src:/app/src

@@ -1,0 +1,8 @@
+NHIỆM VỤ: Finance service (invoices, payments, AR/AP, commissions).
+YÊU CẦU:
+- Invoices: phát hành từ RO; số hóa đơn tuần tự theo tenant; trạng thái (DRAFT, ISSUED, PAID, PARTIALLY_PAID, VOID).
+- Payments: tích hợp [PAYMENT_GATEWAY] mock; webhook verify chữ ký; idempotency-key.
+- Báo cáo: doanh thu theo thời gian, theo garage/distributor, theo dòng xe; export CSV.
+- Thuế/phí cấu hình theo tenant.
+
+ĐẦU RA: Entities + API + webhook handler + test chữ ký + báo cáo mẫu.

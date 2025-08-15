@@ -1,0 +1,7 @@
+# Ignore node_modules and test files
+node_modules/
+test/
+tests/
+pacts/
+logs/
+coverage/

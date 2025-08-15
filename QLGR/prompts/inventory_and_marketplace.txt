@@ -1,0 +1,14 @@
+NHIỆM VỤ: Xây Inventory/Marketplace service:
+- Chức năng: search sản phẩm (keyword + filter theo hãng xe/đời/model/brand), pricing rules, tồn kho đa kho, cảnh báo min stock, đặt mua từ garage.
+
+YÊU CẦU:
+- ES index: products (analyzer: edge_ngram + synonym vi/en), fields: sku, name, description, brand, fitment, specs, price, popularity.
+- Redis: cache kết quả search nóng, khóa phân tán (redlock) cho cập nhật tồn kho.
+- RabbitMQ events: product_indexed, inventory_changed, order_created.
+- API: GET /products/search, GET /products/:id, POST /orders, PATCH /orders/:id/status, GET /inventory?warehouse=...
+
+ĐẦU RA:
+1) Mapping ES + pipeline suggesters
+2) Code cập nhật chỉ mục khi product thay đổi (outbox → consumer → ES)
+3) Flow idempotent khi trừ tồn kho (optimistic lock)
+4) Test: ES query tests + concurrency test mô phỏng 100 đơn

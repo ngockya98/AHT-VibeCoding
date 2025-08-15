@@ -1,0 +1,15 @@
+{
+  "title": "API Error Rate",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Error Rate",
+      "targets": [
+        {
+          "expr": "sum(rate(http_server_errors_total[5m])) by (service)",
+          "legendFormat": "{{service}}"
+        }
+      ]
+    }
+  ]
+}

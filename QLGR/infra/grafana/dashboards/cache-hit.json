@@ -1,0 +1,15 @@
+{
+  "title": "Cache Hit Rate",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Redis Cache Hit Rate",
+      "targets": [
+        {
+          "expr": "sum(rate(redis_keyspace_hits_total[5m])) / (sum(rate(redis_keyspace_hits_total[5m])) + sum(rate(redis_keyspace_misses_total[5m])))",
+          "legendFormat": "Cache Hit Rate"
+        }
+      ]
+    }
+  ]
+}

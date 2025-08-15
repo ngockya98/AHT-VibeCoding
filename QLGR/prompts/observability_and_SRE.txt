@@ -1,0 +1,6 @@
+NHIỆM VỤ: Thiết lập OpenTelemetry, Prometheus, Grafana:
+- Collectors, sampling, span attributes chuẩn (tenant_id, user_id, correlationId).
+- Dashboards: API latency, error rate, DB slow query, queue lag, cache hit ratio.
+- Alerting: SLO 99.9%; error budget policy; runbook sự cố.
+
+ĐẦU RA: Manifest Helm/K8s + dashboard JSON + alert rules + runbook.md.

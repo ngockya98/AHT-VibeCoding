@@ -1,0 +1,6 @@
+NHIỆM VỤ: Sinh bộ tài liệu:
+- README monorepo, CONTRIBUTING, CODEOWNERS, coding standards.
+- ADRs (quyết định lớn: microservices, NestJS, ES, RabbitMQ, RBAC, OTel).
+- Sơ đồ logic (Mermaid) chèn trong docs.
+
+ĐẦU RA: thư mục /docs với file mẫu + index.

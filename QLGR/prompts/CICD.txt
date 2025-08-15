@@ -1,0 +1,9 @@
+NHIỆM VỤ: 
+- IaC: Terraform (VPC, RDS Postgres, ElastiCache/Redis, MSK/Rabbit alt, EKS, S3, CloudFront/WAF).
+- K8s: Helm chart per service (config, secrets, HPA, PDB, network policies).
+- CI/CD: GitHub Actions (build/test/lint → docker build → image scan → helm upgrade).
+
+ĐẦU RA:
+1) Terraform module skeleton + môi trường dev/stg/prod
+2) 1 chart mẫu + values.yaml
+3) 2 workflows GH Actions (PR & deploy), caching node, matrix test.

@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: automotive
+        ports: [5432:5432]
+      redis:
+        image: redis:7
+        ports: [6379:6379]
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports: [5672:5672, 15672:15672]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install deps
+        run: pnpm install
+      - name: Lint
+        run: pnpm lint
+      - name: Build
+        run: pnpm build
+      - name: Test
+        run: pnpm test
+      - name: Docker Build
+        run: docker build -t automotive-platform .
+      - name: Trivy Scan
+        uses: aquasecurity/trivy-action@v0.14.0
+        with:
+          image-ref: automotive-platform

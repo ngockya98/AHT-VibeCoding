@@ -1,0 +1,10 @@
+NHIỆM VỤ: Tạo web app 2 vai trò (Garage, Distributor) + trang Customer portal.
+YÊU CẦU:
+- Pages: /login, /dashboard, /marketplace (search, compare, cart, checkout), /inventory, /appointments, /repair-orders/[id], /invoices/[id], /reports.
+- UI: shadcn/ui (Table, Dialog, Drawer, Tabs), form react-hook-form + zod.
+- State: React Query + TanStack Router/Next Router; SSR an toàn (no secrets).
+- RBAC: ẩn/hiện menu theo quyền; bảo vệ route.
+- i18n vi/en; dark mode.
+- Telemetry: page view + action events.
+
+ĐẦU RA: Cấu trúc src/app…, components chung, hooks, mẫu 3 page có data fake + test Playwright 1 flow checkout.

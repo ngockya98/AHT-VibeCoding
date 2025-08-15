@@ -1,0 +1,10 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="20px" color="#333333">Warranty Expiring</mj-text>
+        <mj-text>Your warranty for vehicle {{vehicle_id}} is expiring on {{expiry_date}}.</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
